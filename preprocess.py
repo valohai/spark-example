@@ -30,13 +30,22 @@ def preprocess(input_path, output_path):
     
     # Write the results to the specified output path
     grouped_df.write.mode("overwrite").csv(output_path)
+
+    
+    # Setup a temporary table called titanic
+    spark.read.option("header", "true") \
+                .option("inferSchema", "true") \
+                .csv(input_path) \
+                .createOrReplaceTempView("titanic")
     
     sql_df = spark.sql("""
         SELECT 
-            Age,
-            COUNT(*) AS total_by_age
-        GROUP BY Age
-        ORDER BY total_by_age DESC
+            Survived,
+            Pclass,
+            COUNT(*) AS count
+        FROM titanic
+        GROUP BY Survived, Pclass
+        ORDER BY Survived, Pclass
     """)
     
     # Show the results in the console
@@ -47,6 +56,7 @@ def preprocess(input_path, output_path):
     spark.stop()
 
 if __name__ == "__main__":
-    input_csv_path = valohai.inputs("train", "train.csv").path()
+    # input_csv_path = valohai.inputs("train", "train.csv").path()
+    input_csv_path = "train.csv"
     output_path = "/valohai/outputs/processed-spark"
     preprocess(input_csv_path, output_path)
