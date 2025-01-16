@@ -36,5 +36,5 @@ def preprocess(input_path, output_path):
 
 if __name__ == "__main__":
     input_csv_path = valohai.inputs("train", "train.csv").path()
-    output_path = "processed-spark"
+    output_path = "/valohai/outputs/processed-spark"
     preprocess(input_csv_path, output_path)
