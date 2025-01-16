@@ -35,7 +35,6 @@ def preprocess(input_path, output_path):
         SELECT 
             Age,
             COUNT(*) AS total_by_age
-        FROM people
         GROUP BY Age
         ORDER BY total_by_age DESC
     """)
