@@ -38,19 +38,15 @@ def preprocess(input_path, output_path):
                 .csv(input_path) \
                 .createOrReplaceTempView("titanic")
     
-    sql_df = spark.sql("""
-        SELECT 
-            Survived,
-            Pclass,
-            COUNT(*) AS count
-        FROM titanic
-        GROUP BY Survived, Pclass
-        ORDER BY Survived, Pclass
-    """)
+    sql_query = valohai.parameters("sql", "")
+    if not (sql_query is None or sql_query == ""):
     
-    # Show the results in the console
-    sql_df.show()
-    sql_df.write.mode("overwrite").csv("/valohai/outputs/sql-output")
+        sql_df = spark.sql(sql_query)
+        print("Running sql query...")
+        print(sql_query)
+        # Show the results in the console
+        sql_df.show()
+        sql_df.write.mode("overwrite").csv("/valohai/outputs/sql-output")
     
     # Stop the SparkSession
     spark.stop()
