@@ -32,7 +32,7 @@ def preprocess(input_path, output_path):
     # Write the results to the specified output path
     grouped_df.write.mode("overwrite").csv(output_path)
 
-    sql_query = valohai.parameters("sql", "")
+    sql_query = valohai.parameters("sql", "").value
     if not (sql_query is None or sql_query == ""):
         # Setup a temporary table called titanic
         spark.read.option("header", "true").option("inferSchema", "true") \
