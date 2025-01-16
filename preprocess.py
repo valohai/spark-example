@@ -31,6 +31,19 @@ def preprocess(input_path, output_path):
     # Write the results to the specified output path
     grouped_df.write.mode("overwrite").csv(output_path)
     
+    sql_df = spark.sql("""
+        SELECT 
+            Age,
+            COUNT(*) AS total_by_age
+        FROM people
+        GROUP BY Age
+        ORDER BY total_by_age DESC
+    """)
+    
+    # Show the results in the console
+    sql_df.show()
+    sql_df.write.mode("overwrite").csv("/valohai/outputs/sql-output")
+    
     # Stop the SparkSession
     spark.stop()
 
