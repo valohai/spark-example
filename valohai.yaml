@@ -1,0 +1,12 @@
+- step:
+    name: preprocess
+    image: python:3.10
+    command:
+    - pip install -r requirements.txt
+    - python preprocess.py
+    inputs:
+      - name: train
+        filename: train.csv
+      - name: test
+        filename: test.csv
+        optional: true

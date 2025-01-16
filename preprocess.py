@@ -9,8 +9,9 @@ Usage:
 
 import sys
 from pyspark.sql import SparkSession
+import valohai
 
-def main(input_path: str, output_path: str):
+def preprocess(input_path, output_path):
     # Initialize a SparkSession
     spark = SparkSession.builder \
         .appName("SampleSparkScript") \
@@ -34,11 +35,6 @@ def main(input_path: str, output_path: str):
     spark.stop()
 
 if __name__ == "__main__":
-    # Expect two arguments: input CSV path and output path
-    if len(sys.argv) != 3:
-        print("Usage: spark-submit sample_spark_script.py [input_csv_path] [output_path]")
-        sys.exit(-1)
-
-    input_csv_path = sys.argv[1]
-    output_path = sys.argv[2]
-    main(input_csv_path, output_path)
+    input_csv_path = valohai.inputs("train").path()
+    output_path = valohai.outputs("processed-spark")
+    preprocess(input_csv_path, output_path)
