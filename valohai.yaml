@@ -1,6 +1,6 @@
 - step:
     name: preprocess
-    image: python:3.10
+    image: dusanzamahajev/python-java:0.1
     command:
     - pip install -r requirements.txt --user
     - python preprocess.py
