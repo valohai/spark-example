@@ -2,7 +2,7 @@
     name: preprocess
     image: dusanzamahajev/python-java:0.1
     command:
-    - pip install -r requirements.txt --user
+    - pip install -r requirements.txt
     - python preprocess.py
     inputs:
       - name: train
