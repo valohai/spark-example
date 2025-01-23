@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Sample Spark job in Python to demonstrate reading data from a CSV file,
-performing a simple transformation, and writing the output to disk.
+This Python script is a Spark job that demonstrates how to read data from a CSV file, perform basic data transformations, 
+and optionally execute SQL queries.
 
 Usage:
-    spark-submit sample_spark_script.py [input_csv_path] [output_path]
+    python preprocess.py [input_csv_path] [output_path]
 """
 
 import sys
